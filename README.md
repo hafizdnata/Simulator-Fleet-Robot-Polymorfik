@@ -1,58 +1,145 @@
-# Simulator-Fleet-Robot-Polymorfik
-Vehicle Simulation Project (C++ OOP Polymorphism)
+Fleet Robot Simulation Project (C++ OOP Polymorphism)
+=====================================================
 
-Proyek ini merupakan simulasi berbagai jenis kendaraan menggunakan konsep Object-Oriented Programming (OOP) dalam bahasa C++. Sistem ini terdiri dari beberapa kelas turunan yang mewarisi dari kelas dasar (base class) bernama Vehicle. Kelas ini bersifat abstrak dan berisi atribut seperti id, posisi dengan koordinat x, y, z, serta kapasitas baterai. Vehicle juga memiliki fungsi virtual seperti move, status, clone, dan consumeBattery untuk mengatur pergerakan, status, serta konsumsi energi dari setiap kendaraan. 
+Proyek ini merupakan simulasi armada kendaraan robotik yang terdiri dari berbagai jenis kendaraan seperti GroundRobot, AerialDrone, dan Amphibious. Program ini menampilkan penerapan prinsip Object-Oriented Programming (OOP) dalam C++, termasuk pewarisan, overriding, overloading, dan penggunaan std::unique_ptr untuk pengelolaan memori yang aman.
 
-Kelas GroundRobot merupakan turunan dari Vehicle yang hanya dapat bergerak pada bidang datar, sehingga pergerakan pada sumbu z akan diabaikan. Fungsi move pada kelas ini dioverride agar sesuai dengan batas kemampuan robot darat dan juga dilengkapi dengan fitur obstacleAhead untuk mendeteksi rintangan di jalur pergerakannya. Selain itu, kelas ini memiliki versi overloaded dari fungsi move yang menggunakan heading dan distance sebagai parameter untuk menentukan arah gerak. 
+Setiap kendaraan memiliki perilaku pergerakan yang berbeda dan dikendalikan secara polimorfik melalui kelas dasar Vehicle. Proyek ini dikembangkan dalam kelompok dengan pembagian peran dan tanggung jawab yang jelas untuk memastikan semua anggota berkontribusi.
 
-Kelas AerialDrone merupakan turunan lain dari Vehicle yang mampu bergerak secara tiga dimensi. Fungsi move dioverride untuk mendukung pergerakan 3D, serta memiliki overload move yang menerima posisi target secara langsung. Fungsi status pada AerialDrone juga dioverride agar dapat menampilkan informasi ketinggian (altitude), posisi, dan kondisi baterai secara lebih spesifik. 
+-----------------------------------------------------
+Pembagian Tugas Kelompok
+-----------------------------------------------------
 
-Kelas Amphibious merupakan gabungan dari GroundRobot dan AerialDrone. Kelas ini memiliki kemampuan untuk bergerak baik di darat maupun di udara/air dengan menggunakan pendekatan komposisi atau multiple inheritance. Dengan demikian, Amphibious dapat beralih mode sesuai kebutuhan misi dan kondisi lingkungan. 
++-------------+-------------------------------------------------------------+
+|  Anggota    | Tugas dan Tanggung Jawab                                    |
++-------------+-------------------------------------------------------------+
+| Hafizh      | Desain dan implementasi Vehicle base class, termasuk        |
+|             | Position struct dan fungsi clone()                          |
++-------------+-------------------------------------------------------------+
+| Judhis      | Implementasi GroundRobot serta sistem obstacles dengan      |
+|             | metode override move() dan obstacleAhead()                 |
++-------------+-------------------------------------------------------------+
+| Octa        | Implementasi AerialDrone, termasuk status reporting dan     |
+|             | overloaded move()                                           |
++-------------+-------------------------------------------------------------+
+| Dion        | Pengembangan Amphibious (integration) dan Fleet Manager     |
+|             | yang menggunakan vector dan fungsi executeMove()            |
++-------------+-------------------------------------------------------------+
+| Zahra       | Bagian Testing, pembuatan scenario scripts, serta           |
+|             | dokumentasi (README, test cases, dan demo run)              |
++-------------+-------------------------------------------------------------+
 
-Seluruh kendaraan yang ada akan dikelola menggunakan sebuah vektor berisi smart pointer unik, yaitu std::vector<std::unique_ptr<Vehicle>> fleet. Melalui vektor ini, setiap kendaraan dapat diakses secara polimorfik menggunakan pointer ke base class. Perintah pergerakan kendaraan dijalankan melalui fungsi executeMove yang akan memanggil versi fungsi move yang sesuai dengan jenis kendaraan. Dalam beberapa kasus, dynamic_cast digunakan untuk memastikan tipe kendaraan yang sedang digunakan, misalnya untuk membedakan antara drone dan robot darat. 
+-----------------------------------------------------
+Cara Kompilasi (Universal)
+-----------------------------------------------------
 
-Proyek ini juga mensimulasikan sensor sederhana untuk mendeteksi rintangan (collision handling). GroundRobot memiliki implementasi khusus untuk fungsi obstacleAhead yang akan mengembalikan nilai true jika ada rintangan di depan dalam jarak tertentu. Jika rintangan terdeteksi, kendaraan akan memperpendek langkah atau menolak perintah gerak. Selain itu, setiap kendaraan juga memiliki sistem simulasi konsumsi baterai, di mana kapasitas baterai akan berkurang sesuai jarak tempuh. Konsep overloading dan overriding juga diterapkan secara eksplisit pada beberapa metode seperti move dan status untuk menunjukkan penerapan prinsip polymorphism di C++.
+Proyek ini dapat dijalankan pada Windows, Linux, dan macOS menggunakan compiler C++17.
+Pastikan file utama bernama robot.cpp (atau sesuaikan dengan nama file program utama Anda).
 
-Proyek ini dikerjakan dalam bentuk kelompok dengan pembagian peran sebagai berikut. Anggota pertama bertugas membuat desain dasar dan kelas Vehicle, termasuk struct Position dan metode clone(). Anggota kedua mengimplementasikan kelas GroundRobot serta sistem obstacleAhead untuk mendeteksi rintangan. Anggota ketiga mengembangkan kelas AerialDrone beserta fungsi status yang menampilkan informasi lengkap serta move yang dioverload untuk bergerak ke posisi tertentu. Anggota keempat bertanggung jawab atas kelas Amphibious yang mengintegrasikan kemampuan darat dan udara sekaligus mengatur manajemen armada menggunakan vector dan fungsi executeMove. Anggota kelima bertugas membuat pengujian, skenario misi (scenarios.txt), dokumentasi, serta README dan demo run proyek.
+1. Windows
+   Buka Command Prompt, lalu jalankan perintah:
+   g++ -std=c++17 -O2 -o fleet_sim.exe robot.cpp
 
-Cara untuk menjalankan proyek ini cukup sederhana. Pertama, lakukan proses cloning repository menggunakan perintah: 
-git clone https://github.com/username/vehicle-simulation.git 
-dan masuk ke folder hasil clone dengan perintah cd vehicle-simulation. 
+2. Linux
+   Buka Terminal, lalu jalankan perintah:
+   g++ -std=c++17 -O2 -o fleet_sim robot.cpp
 
-Untuk melakukan kompilasi program, gunakan perintah berikut sesuai sistem operasi yang digunakan. 
+3. macOS
+   Gunakan Terminal, lalu jalankan perintah:
+   clang++ -std=c++17 -O2 -o fleet_sim robot.cpp
 
-Pada Windows, gunakan:
-g++ -std=c++17 -O2 -o main.exe *.cpp
+-----------------------------------------------------
+Cara Menjalankan Program
+-----------------------------------------------------
 
-Pada Linux, gunakan:
-g++ -std=c++17 -O2 -o main *.cpp
+Setelah dikompilasi, jalankan program sesuai sistem operasi Anda.
 
-Pada macOS, gunakan:
-clang++ -std=c++17 -O2 -o main *.cpp
+- Windows:
+  fleet_sim.exe
 
-Setelah proses kompilasi selesai, jalankan program sesuai sistem operasi. Untuk Windows, jalankan main.exe, sedangkan pada Linux dan macOS jalankan ./main di terminal. 
+- Linux / macOS:
+  ./fleet_sim
 
-Proyek ini juga menyediakan run script sederhana untuk menjalankan berbagai skenario. Berikut contoh perintah yang dapat disimpan dalam file scenarios.txt. 
+Program akan menampilkan simulasi perjalanan beberapa kendaraan melalui waypoint dengan mencatat posisi, mode, dan status baterai.
 
-MOVE G1 10 0 0  
-MOVE G1 HEADING 90 DIST 5  
-STATUS G1  
-MOVE D1 5 5 10  
-MOVE D1 TO 10 10 15  
-STATUS D1  
-MOVE A1 5 0 0  
-MODE SWITCH TO AIR  
-MOVE A1 0 0 20  
-STATUS A1  
+-----------------------------------------------------
+Contoh File scenarios.txt
+-----------------------------------------------------
 
-Program akan membaca file scenarios.txt dan mengeksekusi setiap perintah secara berurutan. Saat dijalankan, sistem akan menampilkan log status setiap kendaraan, misalnya: 
+WAYPOINT 1: (2.0, 1.0, 0.0)
+WAYPOINT 2: (5.0, 3.0, 2.0)
+WAYPOINT 3: (8.0, 0.0, 0.0)
 
-[INFO] GroundRobot G1 moved to (10, 0, 0)  
-[WARNING] Obstacle detected ahead! Adjusting path...  
-[INFO] AerialDrone D1 altitude: 15m, Battery: 83%  
-[INFO] Amphibious A1 switched to air mode  
-[INFO] Mission completed successfully!  
+File ini digunakan untuk mengatur urutan pergerakan seluruh kendaraan dalam simulasi.
 
-Struktur folder dalam proyek ini terdiri dari beberapa berkas sumber utama, yaitu vehicle.h/cpp, ground_robot.h/cpp, aerial_drone.h/cpp, amphibious.h/cpp, dan main.cpp, serta file scenarios.txt dan README.md atau README.txt untuk dokumentasi. 
+-----------------------------------------------------
+Contoh Output Program
+-----------------------------------------------------
 
-Proyek ini dibuat untuk tujuan pembelajaran konsep dasar OOP, pewarisan (inheritance), overloading, overriding, serta polymorphism dalam bahasa C++. Seluruh kode dapat dijalankan di berbagai platform seperti Windows, Linux, maupun macOS menggunakan compiler C++17. File ini juga berfungsi sebagai panduan kompilasi, dokumentasi pembagian tugas, dan contoh cara menjalankan simulasi kendaraan menggunakan perintah berbasis teks.
+Fleet Robot Simulator (mini)
+
+=== Fleet status ===
+[GR1] pos=(0,0,0) battery=50.0%
+[AD1] Drone pos=(0,0,5) altitude=5 battery=80.0%
+[AMP1] Amphibious pos=(0,-2,0) mode=GROUND battery=90.0%
+====================
+
+-- Waypoint 1: (2.0,1.0,0.0)
+>>> Perintah ke GR1:
+[GR1] ground bergerak ke (2,1)
+>>> Perintah ke AD1:
+[AD1] drone bergerak ke (2,1,0)
+>>> Perintah ke AMP1:
+[AMP1] Amphibious in GROUND mode.
+[AMP1] ground bergerak ke (2,1)
+...
+
+-----------------------------------------------------
+Deskripsi Singkat
+-----------------------------------------------------
+
+Kelas Vehicle menjadi dasar seluruh kendaraan dengan atribut posisi (Position), ID, dan kapasitas baterai.  
+GroundRobot beroperasi di darat, mendeteksi rintangan, dan membatasi kemiringan medan.
+AerialDrone bergerak di udara dengan perhitungan 3D dan memiliki status ketinggian.
+Amphibious menggabungkan keduanya dan dapat berpindah mode otomatis antara darat dan udara.
+
+Semua kendaraan dikelola dalam std::vector<std::unique_ptr<Vehicle>> yang memungkinkan pengelolaan objek secara polimorfik.
+
+-----------------------------------------------------
+Konsep OOP yang Diterapkan
+-----------------------------------------------------
+
+- Abstraction & Inheritance : Vehicle sebagai kelas dasar abstrak.
+- Polymorphism              : Fungsi virtual move, status, dan clone.
+- Overloading & Overriding  : Fungsi move dengan parameter berbeda dan implementasi unik di setiap turunan.
+- Encapsulation             : Atribut dilindungi (protected) dan diakses melalui metode turunan.
+- Smart Pointer             : Menggunakan std::unique_ptr untuk manajemen memori otomatis.
+
+-----------------------------------------------------
+Struktur Folder (Opsional)
+-----------------------------------------------------
+
+project/
+│
+├── src/
+│   ├── vehicle.h
+│   ├── ground_robot.h
+│   ├── aerial_drone.h
+│   ├── amphibious.h
+│   └── robot.cpp
+│
+├── scenarios/
+│   └── scenarios.txt
+│
+└── README.txt
+
+-----------------------------------------------------
+Catatan
+-----------------------------------------------------
+
+Proyek ini merupakan hasil kerja tim dalam menerapkan konsep Polymorphism, Inheritance, dan Virtual Function di C++.
+Tidak memerlukan dependensi tambahan selain compiler standar C++17.
+Struktur kode dan dokumentasi disusun agar mudah dikembangkan serta diuji pada berbagai platform.
+
+-----------------------------------------------------
+TEKNIK ROBOTIKA DAN KECERDASAN BUATAN, UNIVERSITAS AIRLANGGA-Fleet Robot Simulation Project
+-----------------------------------------------------
