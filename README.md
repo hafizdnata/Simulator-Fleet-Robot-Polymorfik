@@ -15,7 +15,7 @@ Pembagian Tugas Kelompok
 | Hafizh      | Desain dan implementasi Vehicle base class, termasuk        |
 |             | Position struct dan fungsi clone()                          |
 +-------------+-------------------------------------------------------------+
-| Judhis      | Implementasi GroundRobot serta sistem obstacles dengan      |
+| Khansa      | Implementasi GroundRobot serta sistem obstacles dengan      |
 |             | metode override move() dan obstacleAhead()                 |
 +-------------+-------------------------------------------------------------+
 | Octa        | Implementasi AerialDrone, termasuk status reporting dan     |
@@ -24,7 +24,7 @@ Pembagian Tugas Kelompok
 | Dion        | Pengembangan Amphibious (integration) dan Fleet Manager     |
 |             | yang menggunakan vector dan fungsi executeMove()            |
 +-------------+-------------------------------------------------------------+
-| Khansa      | Bagian Testing, pembuatan scenario scripts, serta           |
+| Judhis      | Bagian Testing, pembuatan scenario scripts, serta           |
 |             | dokumentasi (README, test cases, dan demo run)              |
 +-------------+-------------------------------------------------------------+
 
