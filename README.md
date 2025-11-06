@@ -24,7 +24,7 @@ Pembagian Tugas Kelompok
 | Dion        | Pengembangan Amphibious (integration) dan Fleet Manager     |
 |             | yang menggunakan vector dan fungsi executeMove()            |
 +-------------+-------------------------------------------------------------+
-| Zahra       | Bagian Testing, pembuatan scenario scripts, serta           |
+| Khansa      | Bagian Testing, pembuatan scenario scripts, serta           |
 |             | dokumentasi (README, test cases, dan demo run)              |
 +-------------+-------------------------------------------------------------+
 
