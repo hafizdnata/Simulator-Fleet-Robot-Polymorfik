@@ -1,0 +1,80 @@
+====================================
+SCENARIO DAN TEST - robot.cpp
+====================================
+
+1. SETUP AWAL
+------------------------------------
+Program mensimulasikan Fleet Robot Simulator dengan tiga kendaraan:
+- GR1 : GroundRobot di (0,0,0) baterai 50%
+- AD1 : AerialDrone di (0,0,5) baterai 80%
+- AMP1 : Amphibious di (0,-2,0) baterai 90%
+
+Setiap kendaraan memiliki kemampuan berbeda:
+GroundRobot bergerak di darat dan mendeteksi obstacle.
+AerialDrone terbang dengan konsumsi baterai lebih besar.
+Amphibious dapat berpindah mode antara GROUND dan AIR.
+
+Kendaraan menuju tiga waypoint berurutan:
+1. Waypoint 1: (2,1,0)
+2. Waypoint 2: (5,3,2)
+3. Waypoint 3: (8,0,0)
+
+------------------------------------
+2. JALANNYA MISI (WAYPOINTS SIMULATION)
+------------------------------------
+
+Waypoint 1: (2,1,0)
+- GR1 bergerak di permukaan, tidak mendeteksi obstacle, baterai berkurang sedikit.
+- AD1 terbang menuju posisi baru, baterai turun signifikan karena jarak diagonal.
+- AMP1 bergerak di GROUND mode, tidak ada obstacle, baterai turun sedang.
+
+Waypoint 2: (5,3,2)
+- GR1 mencoba menuju titik baru, tetapi mendeteksi obstacle (misal di sekitar (3,3)) → gerakan ditolak.
+- AD1 naik ke ketinggian 2, baterai berkurang banyak karena jarak jauh.
+- AMP1 berpindah mode ke AIR karena dz != 0, bergerak sebagai drone, baterai menurun lebih besar.
+
+Waypoint 3: (8,0,0)
+- GR1 tetap di darat, mencoba bergerak lagi. Jika baterai habis, muncul pesan battery 0%.
+- AD1 turun ke permukaan, baterai semakin menipis.
+- AMP1 mendeteksi target z=0, otomatis kembali ke GROUND mode dan bergerak ke titik akhir.
+
+------------------------------------
+3. FINAL REPORT
+------------------------------------
+Setelah semua waypoint dilalui:
+- Semua kendaraan menampilkan posisi akhir dan sisa baterai.
+- GR1 mungkin tidak mencapai semua waypoint karena obstacle.
+- AD1 menunjukkan konsumsi baterai tinggi selama penerbangan.
+- AMP1 berhasil menunjukkan perpindahan mode antara GROUND dan AIR.
+- Semua status akhir tercetak di konsol.
+
+------------------------------------
+4. ADDITIONAL TESTS
+------------------------------------
+Program juga menjalankan empat pengujian otomatis:
+
+Test 1 - GroundRobot area bebas:
+GR_TEST di (10,10), bergerak 1 unit, posisi berubah dan baterai berkurang.
+
+Test 2 - GroundRobot ke arah obstacle:
+GR_OBS di (2.9,2.9), mendeteksi obstacle di (3,3), gerakan ditolak.
+
+Test 3 - AerialDrone baterai minim:
+AD_TEST dengan baterai 10%, mencoba ke (2,2,4), muncul pesan fallback karena baterai tidak cukup.
+
+Test 4 - Fleet mission:
+Tiga kendaraan (GR1, AD1, AMP1) menempuh tiga waypoint di atas.
+Seluruh perilaku utama berhasil muncul: obstacle detection, fallback, battery drain, dan mode switching.
+
+------------------------------------
+KESIMPULAN
+------------------------------------
+Skenario ini menguji berbagai perilaku robotik:
+- Battery drain → konsumsi daya tiap kendaraan.
+- Obstacle detection → GroundRobot berhenti bila terhalang.
+- Fallback → Drone naik sedikit saat baterai lemah.
+- Mode switching → Amphibious berpindah antara GROUND dan AIR.
+
+Output yang diharapkan:
+Semua pesan status dan pergerakan tercetak sesuai log simulasi,
+menunjukkan misi berjalan realistis dengan berbagai kondisi robot.
